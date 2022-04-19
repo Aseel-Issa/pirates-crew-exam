@@ -30,11 +30,11 @@ export default function CreatePirate(props) {
     const handleCheckbox = (e) =>{
         // console.log(e.target.id)
         switch(e.target.id){
-            case "eye": setEye(e.target.value) ;
+            case "eye": setEye(!eye) ;
             break;
-            case "leg": setLeg(e.target.value)
+            case "leg": setLeg(!leg)
             break;
-            case "hook": setHook(e.target.value)
+            case "hook": setHook(!hook)
             break;
         }
     }
