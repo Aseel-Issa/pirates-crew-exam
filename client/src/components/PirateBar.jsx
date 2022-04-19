@@ -14,6 +14,7 @@ export default function PirateBar(props) {
         try{
             let response = await axios.delete('http://localhost:8000/api/pirate/'+props.pirate._id)
             alert('pirate was successfully deleted')
+            props.omitPirateFromPiratesList(props.pirate._id)
       
         }catch(e){
             alert(e.toString())

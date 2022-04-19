@@ -19,7 +19,7 @@ export default function HomePage(props) {
             <div className='btnHeader'><button className='headerBtn' onClick={createPirate}>add pirate</button></div>
         </div>
         <div className='conetnt all-pirates-view'>
-            {props.pirates.map(p => { return <PirateBar key={p._id} pirate={p} removePirate={removePirate}></PirateBar>})}
+            {props.pirates.map(p => { return <PirateBar key={p._id} pirate={p} removePirate={removePirate} omitPirateFromPiratesList={props.omitPirateFromPiratesList}></PirateBar>})}
         </div>
 
     </div>)

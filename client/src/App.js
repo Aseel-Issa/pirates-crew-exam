@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link as RouterLink, HashRouter, Routes 
 import axios from 'axios';
 import ViewPirate from './components/ViewPirate'
 import CreatePirate from './components/CreatePirate'
+import Pirate from './classes/Pirate';
 
 class App extends Component {
 
@@ -21,10 +22,11 @@ class App extends Component {
 
   login = async (user) => {
     let results = await axios.get('http://localhost:8000/api/pirates', { withCredentials: true })
+    let newList = results.data.map(p => {return new Pirate(p._id, p.name, p.catchPhrase,p.crewPosition, p.eye, p.hook, p.leg, p.image, p.treasureChests)})
     this.setState({
       loggedInUser: user,
       isLoggedIn: true,
-      pirates: results.data
+      pirates: newList
     }, () => {
       console.log(this.state)
     })
@@ -62,15 +64,27 @@ class App extends Component {
     }
   }
 
-  async removePirateById(id) {
-    try {
-      let response = await axios.delete('http://localhost:8000/api/pirate/' + id)
-      alert('pirate was successfully deleted')
-
-    } catch (e) {
-      alert(e.toString())
-    }
+  addPirateToPiratesList = (pirate) => {
+    let newList = [...this.state.pirates]
+    newList.push(pirate)
+    // console.log('before sorting and after adding new item: ')
+    // newList.forEach(e => {console.log(e.name)})
+    // console.log(newList.toString())
+    newList.sort((a, b) => {
+      return a.name.localeCompare(b.name)
+    })
+    // console.log('after sorting:')
+    // newList.forEach(e => {console.log(e.name)})
+    this.setState({pirates: newList})
   }
+
+  omitPirateFromPiratesList = (_id) => {
+    let newList = [...this.state.pirates]
+    let index = newList.findIndex((p) => {return p._id == _id})
+    newList.splice(index, 1)
+    this.setState({pirates: newList})
+  }
+  
 
   render() {
 
@@ -88,23 +102,13 @@ class App extends Component {
         <Routes>
           {/* <Route path="/pirates" exact element={<HomePage pirates={this.state.pirates}></HomePage>} />
           <Route path="/pirate/:_id" exact element={<ViewPirate pirates={this.state.pirates}></ViewPirate>} /> */}
-          <Route path="/" exact element={<HomePage pirates={this.state.pirates}></HomePage>} />
-          <Route path="/pirates" exact element={<HomePage pirates={this.state.pirates}></HomePage>} />
-          <Route path="/pirate/new" exact element={<CreatePirate></CreatePirate>} />
+          <Route path="/" exact element={<HomePage pirates={this.state.pirates} omitPirateFromPiratesList={this.omitPirateFromPiratesList}></HomePage>} />
+          <Route path="/pirates" exact element={<HomePage pirates={this.state.pirates} omitPirateFromPiratesList={this.omitPirateFromPiratesList}></HomePage>} />
+          <Route path="/pirate/new" exact element={<CreatePirate addPirateToPiratesList={this.addPirateToPiratesList}></CreatePirate>} />
           <Route path="/pirate/:_id" exact element={<ViewPirate pirates={this.state.pirates}></ViewPirate>} />
         </Routes>
       </Router>)
     }
-    // to be deleted
-    // page=(<Router>
-    //   {/* <LoginRegisterationForm login={this.login}></LoginRegisterationForm> */}
-    //   <Routes>
-    //     <Route path="/" exact element={<HomePage pirates={this.state.pirates}></HomePage>} />
-    //     <Route path="/pirates" exact element={<HomePage pirates={this.state.pirates}></HomePage>} />
-    //     <Route path="/pirate/new" exact element={<CreatePirate></CreatePirate>} />
-    //     <Route path="/pirate/:_id" exact element={<ViewPirate pirates={this.state.pirates}></ViewPirate>} />
-    //   </Routes>
-    // </Router>)
 
     return (
       <div className='container'>

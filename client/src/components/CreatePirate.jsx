@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import CrewPosition from '../enums/crewPosition'
 import axios from 'axios'
+import Pirate from '../classes/Pirate'
 
 export default function CreatePirate(props) {
 
@@ -63,15 +64,21 @@ export default function CreatePirate(props) {
             eye: eye,
             hook: hook
         }
-        console.log(pirate)
+        // console.log(pirate)
 
+        let pirate2
         try{
             let response = await axios.post('http://localhost:8000/api/pirate/new', pirate)
             alert('pirate was successfully saved')
+            // console.log(response)
+            let p= response.data
+            pirate2 = new Pirate(p._id, p.name, p.catchPhrase,p.crewPosition, p.eye, p.hook, p.leg, p.image, p.treasureChests)
+            // props.addPirateToPiratesList(pirate)
 
         }catch(e){
             alert(e.toString())
         }
+        props.addPirateToPiratesList(pirate2)
     }
     let options = []
     for (let key in CrewPosition) {

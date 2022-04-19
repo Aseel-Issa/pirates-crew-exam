@@ -179,3 +179,29 @@
 /* .content {
   max-height: 500px;
 } */
+
+.registeration{
+  background-color: white;
+    border: 1px solid black;
+    margin: 5%;
+    padding: 5%;
+}
+
+.registeration > button {
+  margin-top: 5%;
+  background-color: rgb(56, 56, 247);
+  color:  rgb(252, 252, 248);
+}
+
+.login{
+  background-color: white;
+    border: 1px solid black;
+    margin: 5%;
+    padding: 5%;
+}
+
+.login > button {
+  margin-top: 5%;
+  background-color: rgb(56, 56, 247);
+  color:  rgb(252, 252, 248);
+}
