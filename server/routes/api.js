@@ -75,7 +75,7 @@ router.get('/api/user/:email', async function(req, res){
 
 // route to get all pirates, access should be authenticated
 // router.get('/api/pirates', authenticate, async function(req, res)
-router.get('/api/pirates', async function(req, res){
+router.get('/api/pirates', authenticate, async function(req, res){
     const result = await DbManager.getAllPirate()
     res.send(result)
 })

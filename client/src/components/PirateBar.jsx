@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
+const Base_Url = 'http://localhost:3000'
 
 export default function PirateBar(props) {
 
@@ -12,7 +13,7 @@ export default function PirateBar(props) {
     const remove = async function (){
         // props.removePirate(props.pirate._id)
         try{
-            let response = await axios.delete('http://localhost:8000/api/pirate/'+props.pirate._id)
+            let response = await axios.delete(Base_Url+'/api/pirate/'+props.pirate._id)
             alert('pirate was successfully deleted')
             props.omitPirateFromPiratesList(props.pirate._id)
       

@@ -8,6 +8,7 @@ import axios from 'axios';
 import ViewPirate from './components/ViewPirate'
 import CreatePirate from './components/CreatePirate'
 import Pirate from './classes/Pirate';
+const Base_Url = 'http://localhost:3000'
 
 class App extends Component {
 
@@ -18,10 +19,11 @@ class App extends Component {
       isLoggedIn: false,
       pirates: []
     }
+
   }
 
   login = async (user) => {
-    let results = await axios.get('http://localhost:8000/api/pirates', { withCredentials: true })
+    let results = await axios.get(Base_Url+'/api/pirates', { withCredentials: true })
     let newList = results.data.map(p => {return new Pirate(p._id, p.name, p.catchPhrase,p.crewPosition, p.eye, p.hook, p.leg, p.image, p.treasureChests)})
     this.setState({
       loggedInUser: user,
@@ -34,21 +36,21 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.forTesting()
+    // await this.forTesting()
   }
 
-  forTesting = async () => {
-    let results = await axios.get('http://localhost:8000/api/pirates', { withCredentials: true })
-    this.setState({
-      pirates: results.data
-    }, () => {
-      console.log(this.state)
-    })
-  }
+  // forTesting = async () => {
+  //   let results = await axios.get('http://localhost:8000/api/pirates', { withCredentials: true })
+  //   this.setState({
+  //     pirates: results.data
+  //   }, () => {
+  //     console.log(this.state)
+  //   })
+  // }
 
   logout = async () => {
     // clear cookies from server side
-    let result = await axios.get('/api/logout')
+    let result = await axios.get(Base_Url+'/api/logout')
     // logout client side
     if (result.status == 200) {
       this.setState({

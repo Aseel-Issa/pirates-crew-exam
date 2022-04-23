@@ -3,6 +3,7 @@ import {useState} from 'react'
 import CrewPosition from '../enums/crewPosition'
 import axios from 'axios'
 import Pirate from '../classes/Pirate'
+const Base_Url = 'http://localhost:3000'
 
 export default function CreatePirate(props) {
 
@@ -68,7 +69,7 @@ export default function CreatePirate(props) {
 
         let pirate2
         try{
-            let response = await axios.post('http://localhost:8000/api/pirate/new', pirate)
+            let response = await axios.post(Base_Url+'/api/pirate/new', pirate)
             alert('pirate was successfully saved')
             // console.log(response)
             let p= response.data

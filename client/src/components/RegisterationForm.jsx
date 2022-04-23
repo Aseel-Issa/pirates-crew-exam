@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import User from '../classes/User'
-
+const Base_Url = 'http://localhost:3000'
 
 export default function RegisterationForm(props) {
 
@@ -47,7 +47,7 @@ export default function RegisterationForm(props) {
             password: password
         }
 
-        let result = await axios.post('http://localhost:8000/api/user', user)
+        let result = await axios.post(Base_Url+'/api/user', user)
         console.log(result)
         let loggedInUser = new User(result.data._id, result.data.firstName, result.data.lastName, result.data.email) 
         // console.log(loggedInUser)
