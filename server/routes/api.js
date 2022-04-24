@@ -81,16 +81,16 @@ router.get('/api/pirates', authenticate, async function(req, res){
 })
 
 // route to create new pirate, access should be authenticated
-// router.post('/api/pirate/new', authenticate, async function(req, res){
-router.post('/api/pirate/new', async function(req, res){
+router.post('/api/pirate/new', authenticate, async function(req, res){
+// router.post('/api/pirate/new', async function(req, res){
     const pirate = req.body
     const result = await DbManager.savePirate(pirate)
     res.send(result)
 })
 
 // route to delete a pirate based on its id, access should be authenticated
-// router.delete('/api/pirate/:id', authenticate, async function(req, res){
-router.delete('/api/pirate/:id', async function(req, res){
+router.delete('/api/pirate/:id', authenticate, async function(req, res){
+// router.delete('/api/pirate/:id', async function(req, res){
     const pirate = {_id: req.params.id}
     const result = await DbManager.removePirate(pirate)
     res.send(result)

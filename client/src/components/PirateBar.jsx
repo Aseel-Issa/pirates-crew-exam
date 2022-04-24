@@ -13,7 +13,7 @@ export default function PirateBar(props) {
     const remove = async function (){
         // props.removePirate(props.pirate._id)
         try{
-            let response = await axios.delete(Base_Url+'/api/pirate/'+props.pirate._id)
+            let response = await axios.delete(Base_Url+'/api/pirate/'+props.pirate._id, { withCredentials: true })
             alert('pirate was successfully deleted')
             props.omitPirateFromPiratesList(props.pirate._id)
       

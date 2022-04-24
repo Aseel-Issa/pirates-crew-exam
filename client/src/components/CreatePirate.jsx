@@ -69,7 +69,7 @@ export default function CreatePirate(props) {
 
         let pirate2
         try{
-            let response = await axios.post(Base_Url+'/api/pirate/new', pirate)
+            let response = await axios.post(Base_Url+'/api/pirate/new', pirate, { withCredentials: true })
             alert('pirate was successfully saved')
             // console.log(response)
             let p= response.data
